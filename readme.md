@@ -1,0 +1,4 @@
+- `cmake -S . -B build`
+  - ビルド用ファイル生成
+- `cmake --build build`
+  - ビルド実行
