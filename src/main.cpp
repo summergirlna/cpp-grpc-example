@@ -1,13 +1,7 @@
 #include <iostream>
+#include <string>
 
-bool checkTableHealth(const std::string& tableName) {
-    if (tableName.empty()) {
-        return false;
-    }
-
-    // todo テーブル名固定なのは修正する
-    return tableName == "users";
-}
+#include "health_checker.h"
 
 int main() {
     const std::string tableName = "users";
