@@ -5,6 +5,8 @@ project(cpp-grpc-example LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+enable_testing()
+
 add_executable(cpp-grpc-example
         src/main.cpp
         src/health_checker.cpp
@@ -22,3 +24,5 @@ add_executable(health_checker_test
 target_include_directories(health_checker_test PRIVATE
         src
 )
+
+add_test(NAME health_checker_test COMMAND health_checker_test)

@@ -1,6 +1,5 @@
 BUILD_DIR := build
 TARGET := cpp-grpc-example
-TEST_TARGET := health_checker_test
 TABLE ?= users
 
 .PHONY: configure build run test clean rebuild
@@ -15,7 +14,7 @@ run: configure build
 	./$(BUILD_DIR)/$(TARGET) $(TABLE)
 
 test: configure build
-	./$(BUILD_DIR)/$(TEST_TARGET)
+	ctest --test-dir $(BUILD_DIR) --output-on-failure
 
 clean:
 	rm -rf $(BUILD_DIR)
