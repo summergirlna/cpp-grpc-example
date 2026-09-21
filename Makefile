@@ -1,6 +1,7 @@
 BUILD_DIR := build
 TARGET := cpp-grpc-example
 TEST_TARGET := health_checker_test
+TABLE ?= users
 
 .PHONY: configure build run test clean rebuild
 
@@ -11,7 +12,7 @@ build:
 	cmake --build $(BUILD_DIR)
 
 run: configure build
-	./$(BUILD_DIR)/$(TARGET)
+	./$(BUILD_DIR)/$(TARGET) $(TABLE)
 
 test: configure build
 	./$(BUILD_DIR)/$(TEST_TARGET)
