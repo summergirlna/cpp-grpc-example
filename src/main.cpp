@@ -13,13 +13,15 @@ int main(int argc, char* argv[]) {
 
     std::cout << "Checking table health: " << tableName << std::endl;
 
-    const bool healthy = checkTableHealth(tableName);
+    const HealthCheckResult result = checkTableHealth(tableName);
 
-    if (healthy) {
+    if (result.healthy) {
         std::cout << "Health check result: OK" << std::endl;
     } else {
         std::cout << "Health check result: NG" << std::endl;
     }
 
-    return healthy ? 0 : 2;
+    std::cout << "Message: " << result.message << std::endl;
+
+    return result.healthy ? 0 : 2;
 }

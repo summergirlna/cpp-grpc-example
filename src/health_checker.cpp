@@ -4,11 +4,24 @@
 
 #include "health_checker.h"
 
-bool checkTableHealth(const std::string& tableName) {
+HealthCheckResult checkTableHealth(const std::string& tableName) {
     if (tableName.empty()) {
-        return false;
+        return {
+            false,
+            "table name is empty"
+        };
     }
 
     // todo テーブル名固定なのは修正する
-    return tableName == "users";
+    if (tableName == "users") {
+        return {
+            true,
+            "table is readable"
+        };
+    }
+
+    return {
+        false,
+        "table is not readable"
+    };
 }

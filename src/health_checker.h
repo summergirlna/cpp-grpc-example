@@ -5,4 +5,9 @@
 
 #include <string>
 
-bool checkTableHealth(const std::string& tableName);
+struct HealthCheckResult {
+    bool healthy;
+    std::string message;
+};
+
+HealthCheckResult checkTableHealth(const std::string& tableName);

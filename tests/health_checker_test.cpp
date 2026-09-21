@@ -8,9 +8,17 @@
 #include <iostream>
 
 int main() {
-    assert(checkTableHealth("users") == true);
-    assert(checkTableHealth("orders") == false);
-    assert(checkTableHealth("") == false);
+    const HealthCheckResult usersResult = checkTableHealth("users");
+    assert(usersResult.healthy == true);
+    assert(usersResult.message == "table is readable");
+
+    const HealthCheckResult ordersResult = checkTableHealth("orders");
+    assert(ordersResult.healthy == false);
+    assert(ordersResult.message == "table is not readable");
+
+    const HealthCheckResult emptyResult = checkTableHealth("");
+    assert(emptyResult.healthy == false);
+    assert(emptyResult.message == "table name is empty");
 
     std::cout << "All tests passed!" << std::endl;
 
