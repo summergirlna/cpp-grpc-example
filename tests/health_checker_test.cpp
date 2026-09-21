@@ -4,7 +4,6 @@
 #include <cassert>
 
 #include "health_checker.h"
-#include "../src/health_checker.h"
 
 #include <iostream>
 

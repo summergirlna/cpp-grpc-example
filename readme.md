@@ -6,6 +6,8 @@
   - ビルド用ファイル生成
 - `cmake --build build`
   - ビルド実行
+- 毎回パスを通す
+  - export PATH=/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin:${PATH}
 
 ### 文法の類
 
