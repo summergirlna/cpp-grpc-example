@@ -4,24 +4,27 @@
 
 #include "health_checker.h"
 
-HealthCheckResult checkTableHealth(const std::string& tableName) {
-    if (tableName.empty()) {
+namespace db_health {
+
+    HealthCheckResult checkTableHealth(const std::string& tableName) {
+        if (tableName.empty()) {
+            return {
+                false,
+                "table name is empty"
+            };
+        }
+
+        // todo テーブル名固定なのは修正する
+        if (tableName == "users") {
+            return {
+                true,
+                "table is readable"
+            };
+        }
+
         return {
             false,
-            "table name is empty"
+            "table is not readable"
         };
     }
-
-    // todo テーブル名固定なのは修正する
-    if (tableName == "users") {
-        return {
-            true,
-            "table is readable"
-        };
-    }
-
-    return {
-        false,
-        "table is not readable"
-    };
 }

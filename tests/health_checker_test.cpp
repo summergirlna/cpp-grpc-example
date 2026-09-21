@@ -8,15 +8,15 @@
 #include <iostream>
 
 int main() {
-    const HealthCheckResult usersResult = checkTableHealth("users");
+    const db_health::HealthCheckResult usersResult = db_health::checkTableHealth("users");
     assert(usersResult.healthy == true);
     assert(usersResult.message == "table is readable");
 
-    const HealthCheckResult ordersResult = checkTableHealth("orders");
+    const db_health::HealthCheckResult ordersResult = db_health::checkTableHealth("orders");
     assert(ordersResult.healthy == false);
     assert(ordersResult.message == "table is not readable");
 
-    const HealthCheckResult emptyResult = checkTableHealth("");
+    const db_health::HealthCheckResult emptyResult = db_health::checkTableHealth("");
     assert(emptyResult.healthy == false);
     assert(emptyResult.message == "table name is empty");
 

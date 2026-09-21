@@ -13,7 +13,7 @@ int main(int argc, char* argv[]) {
 
     std::cout << "Checking table health: " << tableName << std::endl;
 
-    const HealthCheckResult result = checkTableHealth(tableName);
+    const db_health::HealthCheckResult result = db_health::checkTableHealth(tableName);
 
     if (result.healthy) {
         std::cout << "Health check result: OK" << std::endl;
