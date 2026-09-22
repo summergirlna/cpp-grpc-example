@@ -8,7 +8,8 @@
 
 class DbHealthClient {
 public:
-    explicit DbHealthClient(std::shared_ptr<grpc::Channel> channel) : stub_(db_health::DbHealthService::NewStub(channel)) {}
+    explicit DbHealthClient(std::shared_ptr<grpc::Channel> channel)
+        : stub_(db_health::DbHealthService::NewStub(channel)) {}
 
     db_health::CheckTableHealthResponse CheckTableHealth(const std::string& tableName) {
         db_health::CheckTableHealthRequest request;

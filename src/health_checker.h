@@ -7,10 +7,10 @@
 
 namespace db_health {
 
-    struct HealthCheckResult {
-        bool healthy;
-        std::string message;
-    };
+struct HealthCheckResult {
+    bool healthy;
+    std::string message;
+};
 
-    HealthCheckResult checkTableHealth(const std::string& tableName);
-}
+HealthCheckResult checkTableHealth(const std::string& tableName);
+}  // namespace db_health

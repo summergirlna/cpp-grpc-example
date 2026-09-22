@@ -9,12 +9,11 @@
 
 class DbHealthServiceImpl final : public db_health::DbHealthService::Service {
 public:
-    grpc::Status CheckTableHealth(
-        grpc::ServerContext* context,
-        const db_health::CheckTableHealthRequest* request,
-        db_health::CheckTableHealthResponse* response
-        ) override {
-        const db_health::HealthCheckResult result = db_health::checkTableHealth(request->table_name());
+    grpc::Status CheckTableHealth(grpc::ServerContext* context,
+                                  const db_health::CheckTableHealthRequest* request,
+                                  db_health::CheckTableHealthResponse* response) override {
+        const db_health::HealthCheckResult result =
+            db_health::checkTableHealth(request->table_name());
 
         response->set_healthy(result.healthy);
         response->set_message(result.message);

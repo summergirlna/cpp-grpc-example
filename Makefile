@@ -24,6 +24,9 @@ client: configure build
 test: configure build
 	ctest --test-dir $(BUILD_DIR) --output-on-failure
 
+format:
+	clang-format -i src/*.cpp src/*.h tests/*.cpp
+
 clean:
 	rm -rf $(BUILD_DIR)
 
