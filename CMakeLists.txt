@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Protobuf CONFIG REQUIRED)
+find_package(gRPC CONFIG REQUIRED)
 
 enable_testing()
 
@@ -44,5 +45,21 @@ target_link_libraries(proto_message_test PRIVATE
         protobuf::libprotobuf
 )
 
+add_executable(grpc_generated_test
+        tests/grpc_generated_test.cpp
+        generated/db_health.pb.cc
+        generated/db_health.grpc.pb.cc
+)
+
+target_include_directories(grpc_generated_test PRIVATE
+        generated
+)
+
+target_link_libraries(grpc_generated_test PRIVATE
+        gRPC::grpc++
+        protobuf::libprotobuf
+)
+
 add_test(NAME health_checker_test COMMAND health_checker_test)
 add_test(NAME proto_message_test COMMAND proto_message_test)
+add_test(NAME grpc_generated_test COMMAND grpc_generated_test)
