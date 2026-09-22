@@ -9,7 +9,7 @@
 int main() {
     std::unique_ptr<db_health::DbHealthService::Stub> stub;
 
-    std::cout << "gRPC generated code test passed" << std::endl;
+    std::cout << "gRPC generated code test passed" << '\n';
 
     return 0;
 }

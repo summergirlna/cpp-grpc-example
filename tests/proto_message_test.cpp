@@ -17,7 +17,7 @@ int main() {
     assert(response.healthy() == true);
     assert(response.message() == "table is readable");
 
-    std::cout << "Protobuf message test passed!" << std::endl;
+    std::cout << "Protobuf message test passed!" << '\n';
 
     return 0;
 }

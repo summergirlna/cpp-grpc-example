@@ -19,7 +19,7 @@ int main() {
     assert(emptyResult.healthy == false);
     assert(emptyResult.message == "table name is empty");
 
-    std::cout << "All tests passed!" << std::endl;
+    std::cout << "All tests passed!" << '\n';
 
     return 0;
 }

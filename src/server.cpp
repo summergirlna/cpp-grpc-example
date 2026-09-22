@@ -33,7 +33,7 @@ void runServer() {
 
     std::unique_ptr<grpc::Server> server(builder.BuildAndStart());
 
-    std::cout << "Server listening on " << serverAddress << std::endl;
+    std::cout << "Server listening on " << serverAddress << '\n';
 
     server->Wait();
 }

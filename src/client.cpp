@@ -8,7 +8,7 @@
 
 class DbHealthClient {
 public:
-    explicit DbHealthClient(std::shared_ptr<grpc::Channel> channel)
+    explicit DbHealthClient(const std::shared_ptr<grpc::Channel>& channel)
         : stub_(db_health::DbHealthService::NewStub(channel)) {}
 
     db_health::CheckTableHealthResponse CheckTableHealth(const std::string& tableName) {
@@ -34,7 +34,7 @@ private:
 
 int main(int argc, char* argv[]) {
     if (argc != 2) {
-        std::cerr << "Usage: " << argv[0] << " <table_name>" << std::endl;
+        std::cerr << "Usage: " << argv[0] << " <table_name>" << '\n';
         return 1;
     }
 
@@ -45,15 +45,15 @@ int main(int argc, char* argv[]) {
 
     const db_health::CheckTableHealthResponse response = client.CheckTableHealth(tableName);
 
-    std::cout << "Request table: " << tableName << std::endl;
+    std::cout << "Request table: " << tableName << '\n';
 
     if (response.healthy()) {
-        std::cout << "Health check result: OK" << std::endl;
+        std::cout << "Health check result: OK" << '\n';
     } else {
-        std::cout << "Health check result: NG" << std::endl;
+        std::cout << "Health check result: NG" << '\n';
     }
 
-    std::cout << "Message: " << response.message() << std::endl;
+    std::cout << "Message: " << response.message() << '\n';
 
     return response.healthy() ? 0 : 2;
 }

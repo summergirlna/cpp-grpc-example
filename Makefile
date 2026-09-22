@@ -3,6 +3,8 @@ TARGET := cpp-grpc-example
 SERVER_TARGET := db_health_server
 CLIENT_TARGET := db_health_client
 TABLE ?= users
+CLANG_TIDY ?= /opt/homebrew/opt/llvm/bin/clang-tidy
+SDKROOT ?= $(shell xcrun --show-sdk-path)
 
 .PHONY: configure build run test clean rebuild
 
@@ -26,6 +28,9 @@ test: configure build
 
 format:
 	clang-format -i src/*.cpp src/*.h tests/*.cpp
+
+lint: configure
+	SDKROOT=$(SDKROOT) $(CLANG_TIDY) src/*.cpp tests/*.cpp -p $(BUILD_DIR) --extra-arg=-isysroot --extra-arg=$(SDKROOT)
 
 clean:
 	rm -rf $(BUILD_DIR)
