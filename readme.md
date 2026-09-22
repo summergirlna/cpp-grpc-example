@@ -21,3 +21,7 @@
 - const参照渡し
   - コピーしない
   - 呼び出し元に影響しない
+
+### gprcコード生成
+
+`protoc --cpp_out=generated --proto_path=proto proto/db_health.proto`
