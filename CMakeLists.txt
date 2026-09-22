@@ -31,6 +31,21 @@ target_link_libraries(db_health_server PRIVATE
         protobuf::libprotobuf
 )
 
+add_executable(db_health_client
+        src/client.cpp
+        generated/db_health.pb.cc
+        generated/db_health.grpc.pb.cc
+)
+
+target_include_directories(db_health_client PRIVATE
+        generated
+)
+
+target_link_libraries(db_health_client PRIVATE
+        gRPC::grpc++
+        protobuf::libprotobuf
+)
+
 add_executable(cpp-grpc-example
         src/main.cpp
         src/health_checker.cpp
