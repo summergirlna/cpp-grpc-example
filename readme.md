@@ -26,4 +26,4 @@
 
 `protoc --cpp_out=generated --proto_path=proto proto/db_health.proto`
 
-`protoc --proto_path=proto --grpc_out=generated --plugin=protoc-gen-grpc=$(which grpc_cpp_plugin) proto/db_health.proto `
+`protoc --proto_path=proto --grpc_out=generated --plugin=protoc-gen-grpc=$(which grpc_cpp_plugin) proto/db_health.proto`

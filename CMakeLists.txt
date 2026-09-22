@@ -14,6 +14,23 @@ enable_testing()
 
 #protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS ${PROTO_FILE})
 
+add_executable(db_health_server
+        src/server.cpp
+        src/health_checker.cpp
+        generated/db_health.pb.cc
+        generated/db_health.grpc.pb.cc
+)
+
+target_include_directories(db_health_server PRIVATE
+        src
+        generated
+)
+
+target_link_libraries(db_health_server PRIVATE
+        gRPC::grpc++
+        protobuf::libprotobuf
+)
+
 add_executable(cpp-grpc-example
         src/main.cpp
         src/health_checker.cpp

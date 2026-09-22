@@ -3,7 +3,7 @@ syntax = "proto3";
 package db_health;
 
 service DbHealthService {
-  rpc checkTableHealth(CheckTableHealthRequest) returns (CheckTableHealthResponse);
+  rpc CheckTableHealth(CheckTableHealthRequest) returns (CheckTableHealthResponse);
 }
 
 message CheckTableHealthRequest {
