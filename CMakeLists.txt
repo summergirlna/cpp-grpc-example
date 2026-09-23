@@ -15,9 +15,11 @@ enable_testing()
 
 #protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS ${PROTO_FILE})
 
+# gRPC Server
 add_executable(db_health_server
         src/server.cpp
-        src/health_checker.cpp
+        src/app/check_table_health_use_case.cpp
+        src/infrastructure/mock_table_health_checker.cpp
         generated/db_health.pb.cc
         generated/db_health.grpc.pb.cc
 )
@@ -47,18 +49,22 @@ target_link_libraries(db_health_client PRIVATE
         protobuf::libprotobuf
 )
 
+# CLI
 add_executable(cpp-grpc-example
         src/main.cpp
-        src/health_checker.cpp
+        src/app/check_table_health_use_case.cpp
+        src/infrastructure/mock_table_health_checker.cpp
 )
 
 target_include_directories(cpp-grpc-example PRIVATE
         src
 )
 
+# test
 add_executable(health_checker_test
-        tests/health_checker_test.cpp
-        src/health_checker.cpp
+        tests/check_table_health_use_case_test.cpp
+        src/app/check_table_health_use_case.cpp
+        src/infrastructure/mock_table_health_checker.cpp
 )
 
 target_include_directories(health_checker_test PRIVATE

@@ -1,7 +1,8 @@
 #include <iostream>
 #include <string>
 
-#include "health_checker.h"
+#include "app/check_table_health_use_case.h"
+#include "infrastructure/mock_table_health_checker.h"
 
 int main(int argc, char* argv[]) {
     if (argc != 2) {
@@ -11,9 +12,12 @@ int main(int argc, char* argv[]) {
 
     const std::string tableName = argv[1];
 
+    db_health::infrastructure::MockTableHealthChecker tableHealthChecker;
+    const db_health::app::CheckTableHealthUseCase useCase(tableHealthChecker);
+
     std::cout << "Checking table health: " << tableName << '\n';
 
-    const db_health::HealthCheckResult result = db_health::checkTableHealth(tableName);
+    const db_health::domain::HealthCheckResult result = useCase.execute(tableName);
 
     if (result.healthy) {
         std::cout << "Health check result: OK" << '\n';

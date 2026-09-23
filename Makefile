@@ -5,6 +5,7 @@ CLIENT_TARGET := db_health_client
 TABLE ?= users
 CLANG_TIDY ?= /opt/homebrew/opt/llvm/bin/clang-tidy
 SDKROOT ?= $(shell xcrun --show-sdk-path)
+SOURCE_FILES := $(shell find src tests -type f \( -name "*.cpp" -o -name "*.h" \))
 
 .PHONY: configure build run test clean rebuild
 
@@ -27,10 +28,10 @@ test: configure build
 	ctest --test-dir $(BUILD_DIR) --output-on-failure
 
 format:
-	clang-format -i src/*.cpp src/*.h tests/*.cpp
+	clang-format -i $(SOURCE_FILES)
 
 lint: configure
-	SDKROOT=$(SDKROOT) $(CLANG_TIDY) src/*.cpp tests/*.cpp -p $(BUILD_DIR) --extra-arg=-isysroot --extra-arg=$(SDKROOT)
+	SDKROOT=$(SDKROOT) $(CLANG_TIDY) $(SOURCE_FILES) -p $(BUILD_DIR) --extra-arg=-isysroot --extra-arg=$(SDKROOT)
 
 clean:
 	rm -rf $(BUILD_DIR)
