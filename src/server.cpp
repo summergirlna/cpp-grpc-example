@@ -4,9 +4,27 @@
 
 #include <grpcpp/grpcpp.h>
 
+#include <csignal>
+
 #include "app/check_table_health_use_case.h"
 #include "db_health.grpc.pb.h"
 #include "infrastructure/mock_table_health_checker.h"
+
+namespace {
+std::atomic_bool shutdownRequested =
+    false;  // NOLINT(cppcoreguidelines-avoid-non-const-global-variables)
+grpc::Server* runningServer =
+    nullptr;  // NOLINT(cppcoreguidelines-avoid-non-const-global-variables)
+
+void handleSignal(int signal) {
+    shutdownRequested = true;
+
+    if (runningServer != nullptr) {
+        std::cout << "Received signal " << signal << ", shutting down server..." << '\n';
+        runningServer->Shutdown();
+    }
+}
+}  // namespace
 
 class DbHealthServiceImpl final : public db_health::DbHealthService::Service {
 public:
@@ -33,6 +51,9 @@ private:
 void runServer() {
     const std::string serverAddress = "0.0.0.0:50051";
 
+    std::signal(SIGINT, handleSignal);
+    std::signal(SIGTERM, handleSignal);
+
     db_health::infrastructure::MockTableHealthChecker tableHealthChecker;
     db_health::app::CheckTableHealthUseCase useCase(tableHealthChecker);
     DbHealthServiceImpl service(useCase);
@@ -42,10 +63,17 @@ void runServer() {
     builder.RegisterService(&service);
 
     std::unique_ptr<grpc::Server> server(builder.BuildAndStart());
+    runningServer = server.get();
 
     std::cout << "Server listening on " << serverAddress << '\n';
 
     server->Wait();
+
+    runningServer = nullptr;
+
+    if (shutdownRequested) {
+        std::cout << "Server shutdown completed." << '\n';
+    }
 }
 
 int main() {

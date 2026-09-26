@@ -26,13 +26,13 @@ RUN mkdir -p generated \
 
 RUN cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 RUN cmake --build build --parallel
+RUN strip build/db_health_server build/db_health_client
 
 FROM ubuntu:24.04 AS runtime-base
 
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    libprotobuf-dev \
     libgrpc++1.51 \
     && rm -rf /var/lib/apt/lists/*
 
