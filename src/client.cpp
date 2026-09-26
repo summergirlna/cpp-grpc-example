@@ -39,7 +39,8 @@ int main(int argc, char* argv[]) {
     }
 
     const std::string tableName = argv[1];
-    const std::string serverAddress = "localhost:50051";
+    const char* serverAddressEnv = std::getenv("DB_HEALTH_SERVER_ADDRESS");
+    const std::string serverAddress = serverAddressEnv == nullptr ? "localhost:50051" : serverAddressEnv;
 
     DbHealthClient client(grpc::CreateChannel(serverAddress, grpc::InsecureChannelCredentials()));
 

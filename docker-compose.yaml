@@ -1,0 +1,19 @@
+services:
+  server:
+    image: cpp-grpc-example-server
+    build:
+      context: .
+      target: server-runtime
+    ports:
+      - "50051:50051"
+
+  client:
+    image: cpp-grpc-example-client
+    build:
+      context: .
+      target: client-runtime
+    environment:
+      DB_HEALTH_SERVER_ADDRESS: server:50051
+    depends_on:
+      - server
+    command: ["users"]
